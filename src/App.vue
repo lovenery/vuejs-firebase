@@ -1,18 +1,33 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <hello></hello>
+
   </div>
 </template>
 
 <script>
 import Hello from './components/Hello'
 
+import Firebase from 'firebase'
+
+let config = {
+    apiKey: "AIzaSyDt2Aj2IldPkN4uN91-NaN3pLgj8_Fn7xY",
+    authDomain: "vuejs-books.firebaseapp.com",
+    databaseURL: "https://vuejs-books.firebaseio.com",
+    storageBucket: "vuejs-books.appspot.com",
+    messagingSenderId: "622931788272"
+}
+
+let app = Firebase.initalizeApp(config)
+let db = app.database()
+
+let bookRef = db.ref('books')
+
+
 export default {
-  name: 'app',
-  components: {
-    Hello
-  }
+    name: 'app',
+    firebase: {
+        books: booksRef
+    }
 }
 </script>
 
