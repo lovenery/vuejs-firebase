@@ -3,6 +3,30 @@
     <div class="page-header">
         <h1>Vue.js 2 && Firebase</h1>
     </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3>Add URL</h3>
+        </div>
+        <div class="panel-body">
+            <form id="form" class="form-inline" v-on:submit.prevent="addBook">
+                <div class="form-group">
+                    <label for="bookTitle">Title:</label>
+                    <input type="text" id="bookTitle" class="form-control" v-model="newBook.title">
+                </div>
+                <div class="form-group">
+                    <label for="bookAuthor">Author:</label>
+                    <input type="text" id="bookAuthor" class="form-control" v-model="newBook.author">
+                </div>
+                <div class="form-group">
+                    <label for="bookURL">URL:</label>
+                    <input type="text" id="bookURL" class="form-control" v-model="newBook.url">
+                </div>
+                <input type="submit" class="btn btn-primary" value="Add URL">
+            </form>
+        </div>
+    </div>
+
     <div class="panel panel-default">
         <div class="panel-heading">
             <h3>URL Lists</h3>
@@ -19,7 +43,7 @@
                 <tbody>
                     <tr v-for="book in books">
                         <td>
-                            <a :href="book.url">{{book.title}}</a>
+                            <a :href="book.url" target="_blank">{{book.title}}</a>
                         </td>
                         <td>{{ book.author }}</td>
                     </tr>
@@ -53,6 +77,23 @@ export default {
     name: 'app',
     firebase: {
         books: booksRef
+    },
+    data () {
+        return {
+            newBook: {
+                title: '',
+                author: '',
+                url: ''
+            }
+        }
+    },
+    methods: {
+        addBook: function () {
+            booksRef.push(this.newBook)
+            this.newBook.title = ''
+            this.newBook.author = ''
+            this.newBook.url = ''
+        }
     }
 }
 </script>
