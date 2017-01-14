@@ -60,6 +60,8 @@ import Hello from './components/Hello'
 
 import Firebase from 'firebase'
 
+import toastr from 'toastr'
+
 let config = {
     apiKey: "AIzaSyDt2Aj2IldPkN4uN91-NaN3pLgj8_Fn7xY",
     authDomain: "vuejs-books.firebaseapp.com",
@@ -97,6 +99,7 @@ export default {
         },
         removeBook: function (book) {
             booksRef.child(book['.key']).remove()
+            toastr.success("URL removed")
         }
     }
 }
